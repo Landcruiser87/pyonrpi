@@ -48,7 +48,7 @@ As a backup for the above config. If, after the first boot, the Pi is not access
 Once the Pi is booted and connected to the network, the first action is to connect to it via an SSH client (like PuTTY on Windows 9 or the built-in terminal on macOS/Linux) and perform initial system updates.
 
 ```bash
-ssh username@raspberrypi.local (or $ ssh username@<IP_ADDRESS>)
+ssh username@raspberrypi.local | ssh username@<IP_ADDRESS>
 $ sudo apt update
 $ sudo apt full-upgrade
 ```
@@ -60,7 +60,7 @@ The first commands to run on any new Linux system are to update the package list
 This command downloads the latest package information from the repositories defined in /etc/apt/sources.list. It does not install or upgrade any software.
 
 #### Upgrade System Packages:
-his command performs the actual upgrade of all installed packages. It is critical to use full-upgrade rather than the more common apt upgrade. The upgrade command will never remove existing packages, even if removal is required to resolve a dependency conflict. The full-upgrade command will remove packages if necessary to complete a system-wide upgrade. After updating, the raspi-config tool ($ sudo raspi-config) can be run to set system-level options like the timezone, which can be important for cron scheduling or if you didn't set it at the point of image creation.
+This command performs the actual upgrade of all installed packages. It is critical to use full-upgrade rather than the more common apt upgrade. The upgrade command will never remove existing packages, even if removal is required to resolve a dependency conflict. The full-upgrade command will remove packages if necessary to complete a system-wide upgrade. After updating, the raspi-config tool `sudo raspi-config` can be run to set system-level options like the timezone, which can be important for cron scheduling or if you didn't set it at the point of image creation.
 
 ## Part 2 Enviroment management. 
 
@@ -83,8 +83,7 @@ python -m venv .venv
 source .venv/bin/activate
 ```
 
-Either should create and activate your environment in your terminal. 
-If you cloned this repo, you just need to do the following to install the necessary libraries.  
+Either should create and activate your environment in your terminal. If you cloned this repo, you just need to do the following to install the necessary libraries.  
 
 ```
 poetry install --no-root
@@ -98,19 +97,21 @@ Or you can install the listed libraries above manually with pip.  Detailed can b
 
 ## Part 3: The Execution Layer: Python in Bash
 
-The next layer in the architecture is the Bash "wrapper" script. This script acts as the entry point for automation, handling environment setup before executing the Python logic.
+The next layer in the architecture is the Bash script. This script acts as the entry point for automation, handling environment setup before executing the Python logic.
 
 ### Module 3.1: Fundamentals of Bash Scripts
 
 A Bash script is a plain text file containing a series of shell commands. It always starts with `#!/bin/bash` This is a "hardcoded" path to the Bash interpreter. The Shebang The very first line of a Bash script must be a "shebang" It is common but less portable. `#!/usr/bin/env bash` is the preferred, portable shebang. It uses the env program to find the bash executable in the user's $PATH, which is more flexible.
 
 #### Executable Permissions
-By default, a new text file is not executable. The chmod (change mode) command must be used to grant executable permissions.
+By default, a new text file is not executable. The chmod (change permissions) command must be used to grant executable permissions.
 ```bash
 chmod +x scripts/run_script.sh
+chmod +x logs/cron.log
+chmod +x .venv/bin/python
 ```
 
-With those perimssions you'll also need to set a permission on the `cron log` file.  As this will serve as our general run log for the bash file.  We don't necessarily need to set the permissions for the python log files as those won't need execution permission.
+We don't necessarily need to set the permissions for the python log files as those won't need execution permission.
 
 ### Module 3.2: Calling Python from Bash (The Right and Wrong Ways)
 
@@ -244,9 +245,7 @@ Table 2: Crontab Syntax Examples
 
 ## Part 5: Deploy keys
 
-Now that we've gotten most of our setup in order the last step is adding the deploy key to our repo.  Normally in this situation you'd want to only give read access to a repo pull for safety.  Here we're going to be a bit more brazen and let the bash script perform a git pull/commit/push all on its own to update our files.  Which for our case will only be the daily json files.
-
-the first thing you'll need to do is create an SSH key to share with github
+Now that we've gotten most of our setup in order the last step is adding the deploy key to our repo.  Normally in this situation you'd want to only give read access to a repo pull for safety.  Here we're going to be a bit more brazen and let the bash script perform a git pull/commit/push all on its own to update our files.  Which for our case will only be the daily json files. TThe first thing you'll need to do is create an SSH key to share with github
 
 ```terminal
 ssh-keygen -t ed25519 -C "rp4_deploy_key" -f "$HOME/.ssh/rp4_deploy_key"
@@ -268,7 +267,7 @@ To copy the pub key
 cat "$HOME/.ssh/rp4_deploy_key.pub"
 ```
 
-Now paste that into the key field below and give it a useful title like.  `Cron_comp_stats`
+Now paste that into the key field below and give it a useful title like.  `Cron_comp_stats`.  Click allow write access if you want this repo to be pushing data back up to github.
 
 ![Add your key](data/images/deploykey1.png)
 
@@ -313,7 +312,7 @@ Now we can set up our cronjob as described earlier.  Say I want this to run ever
 That would be
 
 ```
-00 13 * * * /bin/bash $HOME/gitrepos/pyonrpi/run_script.sh >> $HOME/gitrepos/pyonrpi/logs/cron.log
+0/10 0 * * * /bin/bash $HOME/gitrepos/pyonrpi/run_script.sh >> $HOME/gitrepos/pyonrpi/logs/cron.log
 ```
 
 Also this is a nice reference site for explaining cronjobs in more detail.
