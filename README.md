@@ -41,7 +41,7 @@ if you see a `version` returned, you have Poetry installed.  Follow this [link](
 
 Some prefer Poetry's default storage method of storing environments in one location on your system.  The default storage are nested under the `{cache_dir}/virtualenvs`.  See the below image for general system location of the cache.
 
-![Cache Directory](data/extra/p_cach_dir.png)
+![Cache Directory](data/images/p_cach_dir.png)
 
 If you want to store you virtual environment locally.  Set this global configuration flag below once poetry is installed.  This will now search for whatever environments you have in the root folder before trying any global versions of the environment in the cache.
 
@@ -54,7 +54,7 @@ For general instruction as to poetry's functionality and commands, please see re
 To spawn a new and/or current poetry .venv
 
 ```terminal
-poetry shell
+poetry env use python #or python3
 ```
 
 To install libraries
@@ -83,12 +83,6 @@ To run the extraction script, run the command
 
 ```terminal
 poetry run python scripts/main.py
-```
-
-To run the TUI, run the command
-
-```terminal
-poetry run python scripts/tui.py
 ```
 
 # Project setup *without* Poetry

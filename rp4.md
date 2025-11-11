@@ -24,13 +24,13 @@ You're going to want to choose the 64 bit Raspberry Pi OS.  It'll look like this
 
 The first time the system boots, you'll think its running extremely slowly and reconsider whether the 32 bit option was maybe the choice.  Give it a little time. The install process for Linux is slightly different in that its optimizing path structure as its building the first time on the fly.  So it takes a little extra compute to get the job done. 
 
-### Module 1.2: Headless Setup Configuration (The Modern Way)
+### Module 1.2: WIFI / SSH / timezone setup
 
-A headless setup (lacking a monitor, keyboard, or mouse) is standard for an automation server. The Raspberry Pi Imager provides a modern, integrated method for pre-configuring the OS for headless access. 
+A headless setup (lacking a monitor, keyboard, or mouse) is standard for an automation server. The Raspberry Pi Imager provides a modern, integrated method for pre-configuring the OS for SSH access.
 
 #### Advanced Options Menu
-
 Historically, enabling SSH on a headless Pi required mounting the flashed SD card and manually creating an empty file named ssh in the boot partition. This method is now obsolete for initial setup.
+
 The Imager features an advanced options menu, accessible by pressing CTRL + SHFT + X 11 or clicking the gear icon. This menu is the key to a true zero-touch headless configuration. Before flashing the SD card, this menu allows the administrator to:
 - Set a hostname (e.g., my-pi)
 - Enable SSH permanently
@@ -41,7 +41,7 @@ The Imager features an advanced options menu, accessible by pressing CTRL + SHFT
 
 ![Fill out configs](/data/images/rpi_imager_2.png)
 
-As a backup for the above config. If, after the first boot, the Pi is not accessible via SSH (e.g., ssh my-pi@raspberrypi.local times out), the first troubleshooting step is to power down the Pi, mount the SD card on a computer, and manually add the empty ssh file to the root directory of the boot partition. This manual override often resolves the connection failure.
+As a backup for the above config. If, after the first boot, the Pi is not accessible via SSH (e.g., ssh username@raspberrypi.local times out), the first troubleshooting step is to power down the Pi, mount the SD card on a computer, and manually add the empty ssh file to the root directory of the boot partition. This manual override often resolves the connection failure.
 
 ### Module 1.3: First Boot and System Hardening
 
@@ -84,14 +84,14 @@ source .venv/bin/activate
 ```
 
 Either should create and activate your environment in your terminal. 
-
 If you cloned this repo, you just need to do the following to install the necessary libraries.  
 
 ```
 poetry install --no-root
 ```
 
-Or you can install the listed libraries above manually with pip.  
+Or you can install the listed libraries above manually with pip.  Detailed can be found in the `README.md` for this repo.
+
 - numpy  |  2.3.4  
 - psutil |  7.1.3  
 - rich   |  14.2.0
@@ -102,17 +102,18 @@ Or you can install the listed libraries above manually with pip.
 
 The next layer in the architecture is the Bash "wrapper" script. This script acts as the entry point for automation, handling environment setup before executing the Python logic.
 
-### Module 3.1: Fundamentals of Bash Wrapper Scripts
+### Module 3.1: Fundamentals of Bash Scripts
 
-A Bash script is a plain text file containing a series of shell commands.
-The Shebang The very first line of a Bash script must be a "shebang." This line tells the operating system which interpreter to use to execute the file. #!/bin/bash: This is a "hardcoded" path to the Bash interpreter. It is common but less portable. #!/usr/bin/env bash: This is the preferred, portable shebang.It uses the env program to find the bash executable in the user's $PATH, which is more flexible.
+A Bash script is a plain text file containing a series of shell commands. It always starts with `#!/bin/bash` This is a "hardcoded" path to the Bash interpreter. The Shebang The very first line of a Bash script must be a "shebang" It is common but less portable. `#!/usr/bin/env bash` is the preferred, portable shebang. It uses the env program to find the bash executable in the user's $PATH, which is more flexible.
 
 #### Executable Permissions
-By default, a new text file is not executable. The chmod (change mode) command must be used to grant executable permissions.39
+By default, a new text file is not executable. The chmod (change mode) command must be used to grant executable permissions.
 ```bash
-$ chmod +x run_my_script.sh 44
-
+chmod +x scripts/run_script.sh
 ```
+
+With those perimssions you'll also need to set a permission on the `cron log` file.  As this will serve as our general run log for the bash file.  We don't necessarily need to set the permissions for the python log files as those won't need execution permission.
+
 ### Module 3.2: Calling Python from Bash (The Right and Wrong Ways)
 
 The primary job of the wrapper script is to execute the Python script within its correct virtual environment. There are two common methods to achieve this:
@@ -136,19 +137,20 @@ Calling the venv's Python binary directly. This bypasses "activation" and simply
 /home/pi/my_project/.venv/bin/python3 /home/pi/my_project/my_script.py
 ```
 
-Critical Recommendation for Automation
+### Critical Recommendation for Automation
 A deep analysis of the cron environment reveals a critical, non-obvious flaw in Method 1.  The cron daemon's default shell is, on most Linux systems, /bin/sh.
 The source command (used in Method 1) is a Bash-specific feature (a "bashism").
 The /bin/sh interpreter does not understand the source command. Therefore, a bash script using source (Method 1) will fail when executed by the default cron shell.
 Method 2 (the "Direct Call" way) makes no assumptions about the shell's features. 
 
-It is a simple, direct executable call, which /bin/sh handles perfectly. Method 2 is vastly superior, more robust, and more portable for automation. It is the architecturally correct choice for this workflow. While Method 1 can be forced to work by changing cron's default shell (by adding SHELL=/bin/bash to the crontab 49), this is an unnecessary and brittle dependency.
+It is a simple, direct executable call, which /bin/sh handles perfectly. Method 2 is vastly superior, more robust, and more portable for automation. It is the architecturally correct choice for this workflow. While Method 1 can be forced to work by changing cron's default shell (by adding SHELL=/bin/bash to the crontab), this is an unnecessary and brittle dependency.
 
 #### Module 3.3: The Canonical Bash Wrapper Script
 
 A truly robust wrapper script must, like its Python counterpart, be location-aware. It cannot assume it is being run from a specific directory, especially when called by cron. The Bash equivalent of Python's __file__-based path is achieved using dirname and readlink. 
 
-Bulletproof Bash Wrapper (run_automation.sh):
+#### Bulletproof Bash Wrapper (run_script.sh):
+
 This script is designed to be run from anywhere (e.g., $HOME by cron) and will still work.
 
 ```bash
