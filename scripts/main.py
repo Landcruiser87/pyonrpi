@@ -14,29 +14,7 @@ from dataclasses import dataclass, field
 
 #Import support files
 import support
-from support import logger, console, get_time, start_time
-
-################################# Timing Func ####################################
-def log_time(fn):
-    """Decorator timing function.  Accepts any function and returns a logging
-    statement with the amount of time it took to run. DJ, I use this code everywhere still.  Thank you bud!
-
-    Args:
-        fn (function): Input function you want to time
-    """	
-    def inner(*args, **kwargs):
-        tnow = time.time()
-        out = fn(*args, **kwargs)
-        te = time.time()
-        took = round(te - tnow, 2)
-        if took <= 60:
-            logger.info(f"{fn.__name__} ran in {took:.3f}s")
-        elif took <= 3600:
-            logger.info(f"{fn.__name__} ran in {(took)/60:.3f}m")		
-        else:
-            logger.info(f"{fn.__name__} ran in {(took)/3600:.3f}h")
-        return out
-    return inner
+from support import logger, console, get_time, start_time, log_time
 
 ################################# Sensor Functions ####################################
 def get_cpu_temps():

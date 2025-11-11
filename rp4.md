@@ -96,8 +96,6 @@ Or you can install the listed libraries above manually with pip.  Detailed can b
 - psutil |  7.1.3  
 - rich   |  14.2.0
 
-
-
 ## Part 3: The Execution Layer: Python in Bash
 
 The next layer in the architecture is the Bash "wrapper" script. This script acts as the entry point for automation, handling environment setup before executing the Python logic.
@@ -123,8 +121,8 @@ Sourcing the activate script. This method mimics what a human user does in their
 
 ```bash
 #!/usr/bin/env bash
-source /home/pi/my_project/.venv/bin/activate
-python3 my_script.py
+source /home/username/pyonrpi/.venv/bin/activate
+python3 main.py
 deactivate
 ```
 
@@ -134,7 +132,7 @@ Calling the venv's Python binary directly. This bypasses "activation" and simply
 
 ```bash
 #!/usr/bin/env bash
-/home/pi/my_project/.venv/bin/python3 /home/pi/my_project/my_script.py
+/home/username/pyonrpi/.venv/bin/python3 /home/username/pyonrpi/main.py
 ```
 
 ### Critical Recommendation for Automation
@@ -183,9 +181,7 @@ echo "Bash Wrapper: Python script finished at $(date)."
 
 This script is now a self-contained, robust automation unit, immune to $PATH and CWD issues, and ready for scheduling.
 
-
-
-## Part 4: The Automation Engine: Scheduling with Cron
+## Part 4: Automation - Scheduling with Cron
 
 The final layer is the cron daemon, the time-based job scheduler built into Linux.55
 
@@ -246,23 +242,7 @@ Table 2: Crontab Syntax Examples
 | On the 1st and 15th of every month     | 0 0 1,15 * * 65  |
 | Every Sunday at midnight               | 0 0 * * 0 57     |
 
-## Part 5: Advanced Integration: Debugging the Cron-Bash-Python Interface
+## Part 5: Deploy keys
 
-This section addresses the most critical and common failure point in all of Linux automation: "My script runs perfectly from the terminal, but fails when run by cron".  This failure is not random. It is a predictable and avoidable outcome caused by three fundamental differences between a user's interactive shell and the cron execution environment.
+Now that we've gotten most of our setup in order the last step is adding the deploy key to our repo.  Normally in this situation you'd want to only give read access to a repo pull for safety.  Here we're going to be a bit more brazen and let the bash script perform a git pull/commit/push all on its own to update our files.  Which for our case will only be the daily json files.
 
-The current file structure is such:
-
-/home/pi/rp4/
-    ├──.venv/                   (The Python virtual environment)
-    ├──.vscode/                 (VS Code setup / debugger config files)
-    ├── data/                   (Data directory)
-        └── images/             (Python logs)
-            ├── various pngs    (Images for repo)
-        └──  json/              (Daily Json files)
-        └── logs/               (Directory for cron output)
-            ├── sensor_logs.txt (Python logs)
-            └── cron.log        (Cron logs)
-    └── scripts/                (Directory for Python script output)
-        ├── main.py             (The main attraction)
-        ├── support.py          (python support functions)
-        └── run_script.sh       (The Bash wrapper)
