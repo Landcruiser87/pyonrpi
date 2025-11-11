@@ -10,7 +10,7 @@
 # Using the HOME variable ensures this works regardless of how cron is run.
 GIT_PATH="/usr/bin/git"
 POETRY_PATH="$HOME/.local/bin/poetry"
-PROJECT_DIR="$HOME/gitrepos/rp4"
+PROJECT_DIR="$HOME/gitrepos/pyonrpi"
 VENV_PATH="$PROJECT_DIR/.venv"
 USER="andy"
 COMMIT_MESSAGE="Auto update for $USER on $(date +'%Y-%m-%d %H:%M:%S')"
