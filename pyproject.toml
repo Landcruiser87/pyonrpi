@@ -1,0 +1,20 @@
+[project]
+name = "rp4"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "landcruiser87",email = "andyheroy@gmail.com"}
+]
+license = {text = "MIT"}
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "numpy (>=2.3.4,<3.0.0)",
+    "rich (>=14.2.0,<15.0.0)",
+    "psutil (>=7.1.3,<8.0.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
