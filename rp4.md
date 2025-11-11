@@ -303,11 +303,12 @@ This will point any SSH request from your repo, to the appropriate git url with 
 ## WARNING
 This not a secure practice.  But if you want full hands off automation, this is the way to do it!  Thanks for coming~
 
-Now we can set up our cronjob as described earlier.  Say I want this to run every 10 seconds.  
-That would be
+Now we can set up our cronjob as described earlier.  Say I want this to run the bash script every 10 minutes, and the sensor script `main.py` every minute.  
+That would be:
 
 ```
-0/10 0 * * * /bin/bash $HOME/gitrepos/pyonrpi/run_script.sh >> $HOME/gitrepos/pyonrpi/logs/cron.log
+* * * * * (cd gitrepos/pyonrpi && ./.venv/bin/python ./scripts/main.py)
+*/10 * * * * /bin/bash $HOME/gitrepos/pyonrpi/run_script.sh >> $HOME/gitrepos/pyonrpi/logs/cron.log
 ```
 
 Also this is a nice reference site for explaining cronjobs in more detail.
