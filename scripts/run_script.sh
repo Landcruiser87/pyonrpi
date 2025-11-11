@@ -5,6 +5,7 @@
 
 # # 2. Pause execution for the delay 
 # sleep $RANDOM_DELAY
+echo -*40
 
 # 3. Define the project directory
 # Using the HOME variable ensures this works regardless of how cron is run.
