@@ -84,9 +84,9 @@ def get_logger(console:Console, log_dir:Path)->logging.Logger:
     file_handler = get_file_handler(log_dir)
     file_handler.setLevel(logging.DEBUG)
     logger.addHandler(file_handler)
-    # rich_handler = get_rich_handler(console)
-    # rich_handler.setLevel(logging.INFO)
-    # logger.addHandler(rich_handler)
+    rich_handler = get_rich_handler(console)
+    rich_handler.setLevel(logging.INFO)
+    logger.addHandler(rich_handler)
     logger.propagate = False
     return logger
 

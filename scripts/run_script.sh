@@ -24,7 +24,7 @@ echo "--- Performing Git Pull ---"
 "$GIT_PATH" pull origin main || { echo "Error: Git pull failed." >&2; exit 1; }
 
 #Take naps to give time for git to update
-sleep 3
+sleep 2
 
 #Run the Python Script
 echo "--- Running main.py ---"

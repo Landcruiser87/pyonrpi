@@ -10,16 +10,17 @@ set -e
 SCRIPT_DIR=$(dirname "$(readlink -f "$0")")
 
 # 2. Define absolute paths to the venv Python and the script to run.
-VENV_PYTHON="$SCRIPT_DIR/.venv/bin/python"
-PYTHON_SCRIPT="$SCRIPT_DIR/scripts/main.py"
+PROJECT_DIR="$HOME/gitrepos/pyonrpi"
+VENV_PYTHON="$PROJECT_DIR/.venv/bin/python"
+PYTHON_SCRIPT="$PROJECT_DIR/scripts/main.py"
 
 # 3. Add a check to ensure the venv executable exists.
-if; then
+if [ ! -x "$VENV_PYTHON" ]; then
     echo "Error: Virtual environment Python not found at $VENV_PYTHON"
     exit 1
 fi
 
 # 4. Execute the Python script using the robust "Direct Call" method.
-echo "Bash Wrapper: Starting Python script at $(date)..."
+echo "Starting Python script at $(date)..."
 "$VENV_PYTHON" "$PYTHON_SCRIPT"
-echo "Bash Wrapper: Python script finished at $(date)."
+echo "Python script finished at $(date)."
