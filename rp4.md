@@ -246,3 +246,6 @@ Table 2: Crontab Syntax Examples
 
 Now that we've gotten most of our setup in order the last step is adding the deploy key to our repo.  Normally in this situation you'd want to only give read access to a repo pull for safety.  Here we're going to be a bit more brazen and let the bash script perform a git pull/commit/push all on its own to update our files.  Which for our case will only be the daily json files.
 
+
+
+![Add your key](data/images/deploykey1.png)

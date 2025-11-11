@@ -132,7 +132,7 @@ dmypy.json
 /__pycache__
 /.vscode
 /.pytest_cache
-*.log
+# *.log
 *.xlsx
 *.zip
 *.shp
