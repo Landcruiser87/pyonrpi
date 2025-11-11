@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 # # 1. Calculate a random delay between 0 and 1799 seconds (30 minutes)
 # RANDOM_DELAY=$(( $RANDOM % 1800 ))

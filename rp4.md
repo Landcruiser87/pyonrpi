@@ -92,7 +92,7 @@ Or you can install the listed libraries above manually with pip.  Detailed can b
 - psutil |  7.1.3  
 - rich   |  14.2.0
 
-## Part 3: The Execution Layer: Python in Bash
+## Part 3: Python in Bash
 
 The next layer in the architecture is the Bash script. This script acts as the entry point for automation, handling environment setup before executing the Python logic.
 
@@ -105,7 +105,6 @@ By default, a new text file is not executable. The chmod (change permissions) co
 ```bash
 chmod +x scripts/run_script.sh
 chmod +x logs/cron.log
-chmod +x .venv/bin/python
 ```
 
 We don't necessarily need to set the permissions for the python log files as those won't need execution permission.
@@ -143,7 +142,7 @@ It is a simple, direct executable call, which /bin/sh handles perfectly. Method 
 
 A script must, like its Python counterpart, be location-aware. It cannot assume it is being run from a specific directory, especially when called by cron. The Bash equivalent of Python's __file__-based path is achieved using dirname and readlink. 
 
-#### Bulletproof Bash Wrapper (run_script.sh):
+#### Test Bash (run_script.sh):
 
 This script is designed to be run from anywhere (e.g., $HOME by cron) and will still work.
 
@@ -160,8 +159,9 @@ set -e
 SCRIPT_DIR=$(dirname "$(readlink -f "$0")")
 
 # 2. Define absolute paths to the venv Python and the script to run.
-VENV_PYTHON="$SCRIPT_DIR/.venv/bin/python"
-PYTHON_SCRIPT="$SCRIPT_DIR/scripts/main.py"
+PROJECT_DIR="$HOME/gitrepos/pyonrpi"
+VENV_PYTHON="$PROJECT_DIR/.venv/bin/python"
+PYTHON_SCRIPT="$PROJECT_DIR/scripts/main.py"
 
 # 3. Add a check to ensure the venv executable exists.
 if [ ! -x "$VENV_PYTHON" ]; then
@@ -170,9 +170,9 @@ if [ ! -x "$VENV_PYTHON" ]; then
 fi
 
 # 4. Execute the Python script using the robust "Direct Call" method.
-echo "Bash Wrapper: Starting Python script at $(date)..."
+echo "Starting Python script at $(date)..."
 "$VENV_PYTHON" "$PYTHON_SCRIPT"
-echo "Bash Wrapper: Python script finished at $(date)."
+echo "Python script finished at $(date)."
 ```
 
 This script is now a self-contained, robust automation unit, immune to $PATH and CWD issues, and ready for scheduling.
@@ -181,7 +181,7 @@ This script is now a self-contained, robust automation unit, immune to $PATH and
 
 The final layer is the cron daemon, the time-based job scheduler built into Linux.55
 
-### Module 4.1: Introduction to the Cron Daemon
+### Introduction to the Cron Daemon
 
 cron is a background daemon (service) that continuously checks for scheduled tasks. The list of tasks is stored in a file called the crontab (cron table).Each user on the system has their own crontab. 
 
@@ -197,7 +197,7 @@ $ crontab -r: #Removes all jobs from the current user's crontab. Use this comman
 #### User Crontab vs. Root Crontab
 It is a common mistake to edit the root user's crontab using $ sudo crontab.  This is unnecessary and dangerous from a security "principle of least privilege" perspective. Since the entire project (Python scripts, venv, Bash wrappers) is located in the pi user's home directory (/home/pi), the automation job should run as the pi user.  Therefore, the correct command to use is `crontab -e` (with no sudo).
 
-#### Module 4.2: Crontab Syntax and Scheduling
+#### Crontab Syntax and Scheduling
 
 A cron job definition has two parts: the schedule and the command. The schedule is defined by five fields, often represented as five asterisks:
 
