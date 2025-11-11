@@ -255,8 +255,6 @@ When it asks for a passphrase, press Enter twice to leave it empty. Why? This sc
 
 Next, you'll also want to add your key to your repository.  Navigate to `settings` -> `deploy keys` -> `add deploy key`
 
-
-
 To copy the pub key
 ```
 cat "$HOME/.ssh/rp4_deploy_key.pub"
@@ -308,7 +306,7 @@ That would be:
 
 ```
 * * * * * (cd gitrepos/pyonrpi && ./.venv/bin/python ./scripts/main.py)
-*/10 * * * * /bin/bash $HOME/gitrepos/pyonrpi/run_script.sh >> $HOME/gitrepos/pyonrpi/logs/cron.log
+*/10 * * * * /bin/bash $HOME/gitrepos/pyonrpi/scripts/run_script.sh >> $HOME/gitrepos/pyonrpi/data/logs/cron.log
 ```
 
 Also this is a nice reference site for explaining cronjobs in more detail.
