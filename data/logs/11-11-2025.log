@@ -1,9 +1,67 @@
-11-11-2025 16:34:13|INFO    |214 |main         |JSON data loaded                                                                                            |
-11-11-2025 16:34:13|INFO    |225 |main         |all sensors successfully queried                                                                            |
-11-11-2025 16:34:13|WARNING |140 |inner        |main ran in 0.02s                                                                                           |
-11-11-2025 16:36:30|INFO    |214 |main         |JSON data loaded                                                                                            |
-11-11-2025 16:36:30|INFO    |225 |main         |all sensors successfully queried                                                                            |
-11-11-2025 16:36:30|WARNING |140 |inner        |main ran in 0.02s                                                                                           |
-11-11-2025 16:38:39|INFO    |214 |main         |JSON data loaded                                                                                            |
-11-11-2025 16:38:39|INFO    |225 |main         |all sensors successfully queried                                                                            |
-11-11-2025 16:38:39|WARNING |140 |inner        |main ran in 0.02s                                                                                           |
+11-11-2025 15:16:51|INFO    |230 |main         |JSON data loaded                                                                                            |
+11-11-2025 15:16:51|WARNING |218 |sensor_town  |'NoneType' object has no attribute 'percent'                                                                |
+11-11-2025 15:16:51|WARNING |243 |main         |Retrieval malfunction.  Check logs                                                                          |
+11-11-2025 15:16:51|INFO    |33  |inner        |main ran in 0.020s                                                                                          |
+11-11-2025 15:17:23|INFO    |230 |main         |JSON data loaded                                                                                            |
+11-11-2025 15:17:23|WARNING |218 |sensor_town  |'NoneType' object has no attribute 'percent'                                                                |
+11-11-2025 15:17:23|WARNING |243 |main         |Retrieval malfunction.  Check logs                                                                          |
+11-11-2025 15:17:23|INFO    |33  |inner        |main ran in 0.020s                                                                                          |
+11-11-2025 15:17:40|INFO    |230 |main         |JSON data loaded                                                                                            |
+11-11-2025 15:18:30|INFO    |234 |main         |JSON data loaded                                                                                            |
+11-11-2025 15:18:30|WARNING |222 |sensor_town  |'str' object has no attribute 'percent'                                                                     |
+11-11-2025 15:18:30|WARNING |247 |main         |Retrieval malfunction.  Check logs                                                                          |
+11-11-2025 15:18:30|INFO    |33  |inner        |main ran in 0.020s                                                                                          |
+11-11-2025 15:19:23|INFO    |235 |main         |JSON data loaded                                                                                            |
+11-11-2025 15:21:47|INFO    |234 |main         |JSON data loaded                                                                                            |
+11-11-2025 15:21:47|WARNING |222 |sensor_town  |'str' object has no attribute 'percent'                                                                     |
+11-11-2025 15:21:47|WARNING |247 |main         |Retrieval malfunction.  Check logs                                                                          |
+11-11-2025 15:21:47|INFO    |33  |inner        |main ran in 0.020s                                                                                          |
+11-11-2025 15:21:57|INFO    |234 |main         |JSON data loaded                                                                                            |
+11-11-2025 15:21:57|WARNING |222 |sensor_town  |Unknown format code 'f' for object of type 'str'                                                            |
+11-11-2025 15:21:57|WARNING |247 |main         |Retrieval malfunction.  Check logs                                                                          |
+11-11-2025 15:21:57|INFO    |33  |inner        |main ran in 0.020s                                                                                          |
+11-11-2025 15:22:33|INFO    |231 |main         |JSON data loaded                                                                                            |
+11-11-2025 15:22:33|WARNING |219 |sensor_town  |'str' object is not a mapping                                                                               |
+11-11-2025 15:22:33|WARNING |244 |main         |Retrieval malfunction.  Check logs                                                                          |
+11-11-2025 15:22:33|INFO    |33  |inner        |main ran in 0.020s                                                                                          |
+11-11-2025 15:23:08|INFO    |229 |main         |JSON data loaded                                                                                            |
+11-11-2025 15:23:08|WARNING |217 |sensor_town  |'str' object is not a mapping                                                                               |
+11-11-2025 15:23:08|WARNING |242 |main         |Retrieval malfunction.  Check logs                                                                          |
+11-11-2025 15:23:08|INFO    |33  |inner        |main ran in 0.020s                                                                                          |
+11-11-2025 15:23:42|INFO    |229 |main         |JSON data loaded                                                                                            |
+11-11-2025 15:23:42|WARNING |217 |sensor_town  |'str' object is not a mapping                                                                               |
+11-11-2025 15:23:42|WARNING |242 |main         |Retrieval malfunction.  Check logs                                                                          |
+11-11-2025 15:23:42|INFO    |33  |inner        |main ran in 0.060s                                                                                          |
+11-11-2025 15:23:54|INFO    |229 |main         |JSON data loaded                                                                                            |
+11-11-2025 15:24:50|INFO    |232 |main         |JSON data loaded                                                                                            |
+11-11-2025 15:24:50|WARNING |220 |sensor_town  |'str' object is not a mapping                                                                               |
+11-11-2025 15:24:50|WARNING |245 |main         |Retrieval malfunction.  Check logs                                                                          |
+11-11-2025 15:24:50|INFO    |33  |inner        |main ran in 0.020s                                                                                          |
+11-11-2025 15:24:56|INFO    |232 |main         |JSON data loaded                                                                                            |
+11-11-2025 15:25:27|INFO    |233 |main         |JSON data loaded                                                                                            |
+11-11-2025 15:25:29|WARNING |221 |sensor_town  |'str' object is not a mapping                                                                               |
+11-11-2025 15:25:29|WARNING |246 |main         |Retrieval malfunction.  Check logs                                                                          |
+11-11-2025 15:25:29|INFO    |33  |inner        |main ran in 2.120s                                                                                          |
+11-11-2025 15:25:35|INFO    |233 |main         |JSON data loaded                                                                                            |
+11-11-2025 15:26:55|INFO    |235 |main         |JSON data loaded                                                                                            |
+11-11-2025 15:26:55|WARNING |223 |sensor_town  |'str' object is not a mapping                                                                               |
+11-11-2025 15:26:55|WARNING |248 |main         |Retrieval malfunction.  Check logs                                                                          |
+11-11-2025 15:26:55|INFO    |33  |inner        |main ran in 0.020s                                                                                          |
+11-11-2025 15:27:04|INFO    |236 |main         |JSON data loaded                                                                                            |
+11-11-2025 15:27:19|WARNING |224 |sensor_town  |'str' object is not a mapping                                                                               |
+11-11-2025 15:27:19|WARNING |249 |main         |Retrieval malfunction.  Check logs                                                                          |
+11-11-2025 15:27:19|INFO    |33  |inner        |main ran in 15.050s                                                                                         |
+11-11-2025 15:27:24|INFO    |236 |main         |JSON data loaded                                                                                            |
+11-11-2025 15:28:26|INFO    |236 |main         |JSON data loaded                                                                                            |
+11-11-2025 15:28:31|INFO    |236 |main         |JSON data loaded                                                                                            |
+11-11-2025 15:28:31|INFO    |247 |main         |all sensors successfully queried                                                                            |
+11-11-2025 15:28:31|INFO    |33  |inner        |main ran in 0.020s                                                                                          |
+11-11-2025 15:28:31|INFO    |236 |main         |JSON data loaded                                                                                            |
+11-11-2025 15:28:33|INFO    |247 |main         |all sensors successfully queried                                                                            |
+11-11-2025 15:28:33|INFO    |33  |inner        |main ran in 1.850s                                                                                          |
+11-11-2025 15:40:24|INFO    |214 |main         |JSON data loaded                                                                                            |
+11-11-2025 15:40:24|INFO    |225 |main         |all sensors successfully queried                                                                            |
+11-11-2025 15:40:24|WARNING |140 |inner        |main ran in 0.02s                                                                                           |
+11-11-2025 16:40:09|INFO    |214 |main         |JSON data loaded                                                                                            |
+11-11-2025 16:40:09|INFO    |225 |main         |all sensors successfully queried                                                                            |
+11-11-2025 16:40:09|WARNING |140 |inner        |main ran in 0.02s                                                                                           |
