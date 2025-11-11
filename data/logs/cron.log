@@ -98,3 +98,9 @@ Already up to date.
 To github.com-pyonrpi:Landcruiser87/pyonrpi.git
    0b3a288..7cc27b5  main -> main
 branch 'main' set up to track 'origin/main'.
+--- Performing Git Pull ---
+From github.com-pyonrpi:Landcruiser87/pyonrpi
+ * branch            main       -> FETCH_HEAD
+Already up to date.
+--- Running main.py ---
+--- Changes detected. Committing changes ---
