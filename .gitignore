@@ -56,7 +56,6 @@ coverage.xml
 *.pot
 
 # Django stuff:
-*.log
 local_settings.py
 db.sqlite3
 db.sqlite3-journal
@@ -130,8 +129,15 @@ dmypy.json
 
 #Project specific folders
 /__pycache__
-/.vscode
 /.pytest_cache
+*__pycache__*
+scripts/__pycache__/
+.DS_Store
+/.vscode
+/.venv
+/secret
+scrap/*
+
 # *.log
 *.xlsx
 *.zip
@@ -139,14 +145,3 @@ dmypy.json
 *.bat
 # *.json
 .Rhistory
-.DS_Store
-/.vscode
-/.housing_venv
-/.venv
-/scripts/backup
-/data/backups
-/data/users/users.json
-/secret
-scrap/*
-scripts/__pycache__/
-*__pycache__*
