@@ -137,7 +137,6 @@ scripts/__pycache__/
 /.venv
 /secret
 scrap/*
-
 # *.log
 *.xlsx
 *.zip

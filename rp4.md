@@ -246,6 +246,76 @@ Table 2: Crontab Syntax Examples
 
 Now that we've gotten most of our setup in order the last step is adding the deploy key to our repo.  Normally in this situation you'd want to only give read access to a repo pull for safety.  Here we're going to be a bit more brazen and let the bash script perform a git pull/commit/push all on its own to update our files.  Which for our case will only be the daily json files.
 
+the first thing you'll need to do is create an SSH key to share with github
 
+```terminal
+ssh-keygen -t ed25519 -C "rp4_deploy_key" -f "$HOME/.ssh/rp4_deploy_key"
+```
+
+-t ed25519: Creates a modern, secure key.
+-C "...": A comment to help you remember what this key is for.
+-f "$HOME/.ssh/rp4_deploy_key": Saves the private key to rp4_deploy_key and the public key to rp4_deploy_key.pub inside your .ssh directory.
+
+### Crucial
+When it asks for a passphrase, press Enter twice to leave it empty. Why? This script is for automation. If the key has a passphrase, the script will get stuck asking for it, which defeats the purpose.
+
+Next, you'll also want to add your key to your repository.  Navigate to `settings` -> `deploy keys` -> `add deploy key`
+
+
+
+To copy the pub key
+```
+cat "$HOME/.ssh/rp4_deploy_key.pub"
+```
+
+Now paste that into the key field below and give it a useful title like.  `Cron_comp_stats`
 
 ![Add your key](data/images/deploykey1.png)
+
+Next you'll tell your ssh config file where to look for that ssh key when it asks for it.  
+
+```terminal
+nano "$HOME/.ssh/config"
+```
+
+Add the following block of text to the file. (If you use a provider other than GitHub, change HostName.)
+
+# Config for RP4 deploy key
+```
+Host github.com-pyonrpi (or your reponame)
+    HostName github.com
+    User git
+    IdentityFile ~/.ssh/rp4_deploy_key
+    IdentitiesOnly yes
+    AddKeysToAgent yes
+```
+
+Lastly, you'll set up your git remote origin to point at the hostname you just assigned to your SSH file.  
+
+Do so by first checking your remote 
+```
+git remote -v
+```
+
+To reset it to your repo
+
+```
+# Format: git remote set-url [remote_name] git@[HOST_ALIAS]:[USERNAME]/[REPO].git
+git remote set-url origin git@github.com-pyonrpi:Landcruiser87/pyonrpi.git
+```
+
+This will point any SSH request from your repo, to the appropriate git url with your deploy key
+
+## WARNING
+This not a secure practice.  But if you want full hands off automation, this is the way to do it!  Thanks for coming~
+
+Now we can set up our cronjob as described earlier.  Say I want this to run every 10 seconds.  
+That would be
+
+```
+00 13 * * * /bin/bash $HOME/gitrepos/pyonrpi/run_script.sh >> $HOME/gitrepos/pyonrpi/logs/cron.log
+```
+
+Also this is a nice reference site for explaining cronjobs in more detail.
+[CronGuru](https://crontab.guru/)
+
