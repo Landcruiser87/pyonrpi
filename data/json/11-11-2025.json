@@ -634,5 +634,33 @@
     "ram_util": "24.70",
     "ram_total": "8.20",
     "gpu_info": "nvidia-smi command not found. Is the NVIDIA driver installed?"
+  },
+  "11-11-2025_17-24-01": {
+    "battery": null,
+    "core_count": "4",
+    "cpu_temp": "None",
+    "cpu_util": "40.00",
+    "cpu_1_min": "9.41",
+    "cpu_5_min": "4.76",
+    "cpu_15_min": "3.31",
+    "swap_util": "0.00",
+    "ram_free": "3.56",
+    "ram_util": "24.60",
+    "ram_total": "8.20",
+    "gpu_info": "nvidia-smi command not found. Is the NVIDIA driver installed?"
+  },
+  "11-11-2025_17-24-24": {
+    "battery": null,
+    "core_count": "4",
+    "cpu_temp": "None",
+    "cpu_util": "40.80",
+    "cpu_1_min": "9.84",
+    "cpu_5_min": "5.22",
+    "cpu_15_min": "3.49",
+    "swap_util": "0.00",
+    "ram_free": "3.54",
+    "ram_util": "24.90",
+    "ram_total": "8.20",
+    "gpu_info": "nvidia-smi command not found. Is the NVIDIA driver installed?"
   }
 }
