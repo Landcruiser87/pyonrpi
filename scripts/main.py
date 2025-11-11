@@ -73,7 +73,7 @@ def get_battery() -> float:
         float: % battery 
     """    
     return psutil.sensors_battery()
-
+    
 def get_cpu_load(cc:int) -> tuple:
     """Calculates the average CPU load on the system at 1, 5, and 15 minute intervals
     Args:
@@ -156,8 +156,11 @@ def get_gpu_info() -> dict:
                 "gpu_draw"       : gpu_draw,        # W
                 "gpu_power"      : gpu_tpow,        # W
             }
-        return temp_dict
-    
+        if temp_dict:
+            return temp_dict
+        else:
+            return "GPU info not found"
+        
     except FileNotFoundError:
         return "nvidia-smi command not found. Is the NVIDIA driver installed?"
     #Query Hints
@@ -188,10 +191,10 @@ def sensor_town() -> dataclass:
         tp (dataclass): Populated Timepoint dataclass
     """    
     id       = get_time()
-    battery  = get_battery()
+    # battery  = get_battery()
     cc       = get_core_count()
     cpu_info = get_cpu_load(cc)
-    # cpu_temp = get_cpu_temps()
+    cpu_temp = get_cpu_temps()
     cpu_util = get_cpu_utilization()
     ram_info = get_ram_utilization()
     swap     = get_swap()
@@ -201,7 +204,7 @@ def sensor_town() -> dataclass:
         tp = Timepoint()
         tp.id = id
         tp.core_count = f"{cc}"
-        # tp.cpu_temp   = f"{cpu_temp}"                        # °C
+        tp.cpu_temp   = f"{cpu_temp}"                        # °C
         tp.cpu_util   = f"{cpu_util:.2f}"                    # %
         tp.cpu_1_min  = f"{cpu_info[0]:.2f}"                 # %
         tp.cpu_5_min  = f"{cpu_info[1]:.2f}"                 # %
@@ -210,8 +213,11 @@ def sensor_town() -> dataclass:
         tp.ram_util   = f"{ram_info.percent:.2f}"            # %
         tp.ram_free   = f"{ram_info.free/1_000_000_000:.2f}" # GB
         tp.ram_total  = f"{ram_info.total/1_000_000_000:.2f}"# GB
-        tp.battery    = f"{battery.percent:.2f}"                     # %
-        tp.gpu_info   = {**g_info}
+        if isinstance(g_info, str):
+            tp.gpu_info = g_info
+        else:
+            tp.gpu_info   = {**g_info}
+            
         return tp
     
     except Exception as e:
