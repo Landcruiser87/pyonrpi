@@ -21,18 +21,18 @@ The purpose of this repo is to show how to run python scripts on a raspberry pi.
 /home/username/pyonrpi/
     ├──.venv/                   - The Python virtual environment
     ├──.vscode/                 - VS Code setup / debugger config files
-    ├── data/                   - Data directory
-    |   ├── images/             - Images Folder
+    ├── data/                   - Data folder
+    |   ├── images/             - Images folder
     |   |   └── various pngs    - Images for repo
     |   ├── json/               - Daily Json files
-    |   |   ├── 12-24-1948.json - Python logs
-    |   └── logs/               - Directory for log files
+    |   |   ├── 12-24-1948.json - Days storage file
+    |   └── logs/               - Log folder
     |       ├── sensor_logs.txt - Python logs
     |       └── cron.log        - Cron logs
-    └── scripts/                - Directory for Python script output
+    └── scripts/                - Script Directory
         ├── main.py             - The main attraction
         ├── support.py          - python support functions
-        ├── run_script.sh       - Runs the python scripts
+        ├── run_script.sh       - runtime bash script
         └── run_test.sh         - Test bash script
 ```
 
