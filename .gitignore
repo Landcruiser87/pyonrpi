@@ -137,10 +137,10 @@ scripts/__pycache__/
 /.venv
 /secret
 scrap/*
-# *.log
+*.log
 *.xlsx
 *.zip
 *.shp
 *.bat
-# *.json
+*.json
 .Rhistory
