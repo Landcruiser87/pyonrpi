@@ -222,7 +222,7 @@ def main():
     #If data found, save it, otherwise log an error
     if tp:
         support.save_data(tp, cdate, jsondata)
-        logger.info("all sensors successfully queried")
+        logger.info("sensors successfully queried")
     else:
         logger.warning("Retrieval malfunction.  Check logs")
 
