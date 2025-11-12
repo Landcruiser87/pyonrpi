@@ -19,11 +19,8 @@ from support import logger, console, get_time, start_time, log_time
 ################################# Sensor Functions ####################################
 def get_cpu_temps():
     """Retrieves CPU stats.  
-
-what about a dot matrix that has a heatmap representation of cpu temp
     """    
     #For Linux
-    #Below doesn't work currently, but probably because they're vCPU's
     temps = psutil.sensors_temperatures(fahrenheit=True)
     if not temps:
         return "No CPU temperature found"
