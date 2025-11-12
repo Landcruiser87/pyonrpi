@@ -166,7 +166,6 @@ def sensor_town() -> dataclass:
         tp (dataclass): Populated Timepoint dataclass
     """    
     id       = get_time()
-    # battery  = get_battery()
     cc       = get_core_count()
     cpu_info = get_cpu_load(cc)
     cpu_temp = get_cpu_temps()
