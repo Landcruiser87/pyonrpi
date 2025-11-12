@@ -21,14 +21,20 @@ def get_cpu_temps():
     """Retrieves CPU stats.  
     """    
     #For Linux
-    temps = psutil.sensors_temperatures(fahrenheit=True)
-    if not temps:
-        return "No CPU temperature found"
-    elif "coretemp" in temps:
-        avg_temp = npmean([temps["coretemp"][core].current for core in range(len(temps["coretemp"])) if "Core" in temps["coretemp"][core].label])
+    try:
+        if hasattr(psutil, "sensors_temperatures"):
+            temps = psutil.sensors_temperatures(fahrenheit=True)
+            if not temps:
+                return "No CPU temperature found"
+            elif "coretemp" in temps:
+                avg_temp = npmean([temps["coretemp"][core].current for core in range(len(temps["coretemp"])) if "Core" in temps["coretemp"][core].label])
+                return f"{avg_temp:.2f}"
+        else:
+            logger.warning("CPU temps not found")
+            return None
 
-        return f"{avg_temp:.2f}"
-    
+    except Exception as e:
+        logger.warning(f"{e}")    
     #Old Code
     # result = subprocess.run(
     #     ['sensors', '--query-cpu=power.draw,power.limit,temperature.gpu,utilization.gpu,fan.speed', '--format=csv,noheader,nounits'],
@@ -166,6 +172,7 @@ def sensor_town() -> dataclass:
         tp (dataclass): Populated Timepoint dataclass
     """    
     id       = get_time()
+    battery  = get_battery()
     cc       = get_core_count()
     cpu_info = get_cpu_load(cc)
     cpu_temp = get_cpu_temps()
@@ -177,6 +184,7 @@ def sensor_town() -> dataclass:
     try:
         tp = Timepoint()
         tp.id = id
+        tp.battery    = f"{battery}"
         tp.core_count = f"{cc}"
         tp.cpu_temp   = f"{cpu_temp}"                        # °C
         tp.cpu_util   = f"{cpu_util:.2f}"                    # %
