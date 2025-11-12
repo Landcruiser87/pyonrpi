@@ -5,6 +5,7 @@
 
 # # 2. Pause execution for the delay 
 # sleep $RANDOM_DELAY
+
 echo ------------------------------------------------------------------------
 
 # 3. Define the project directory
@@ -30,7 +31,7 @@ sleep 2
 #Run the Python Script
 echo "--- Running main.py ---"
 
-"$POETRY_PATH" run "$PYTHON_INTERPRETER" scripts/main.py $USER || { echo "Error: Python script failed." >&2; exit 1; }
+"$POETRY_PATH" run "$PYTHON_INTERPRETER" scripts/main.py || { echo "Error: Python script failed." >&2; exit 1; }
 
 #Git Commit & Push: Save and send changes to GitHub. Check if the script created any changes to commit (Modified, New, or Deleted) git status --porcelain returns lines for all changed/untracked files.
 if [[ -n $("$GIT_PATH" status --porcelain) ]]; then
