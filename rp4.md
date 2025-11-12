@@ -129,7 +129,7 @@ Calling the venv's Python binary directly. This bypasses "activation" and simply
 
 ```bash
 #!/usr/bin/env bash
-/home/username/pyonrpi/.venv/bin/python3 /home/username/pyonrpi/main.py
+/home/username/pyonrpi/.venv/bin/python3 /home/username/pyonrpi/scripts/main.py
 ```
 
 ### Critical Recommendation for Automation
@@ -179,7 +179,7 @@ This script is now a self-contained, robust automation unit, immune to $PATH and
 
 ## Part 4: Automation - Scheduling with Cron
 
-The final layer is the cron daemon, the time-based job scheduler built into Linux.55
+The final layer is the cron daemon, the time-based job scheduler built into Linux.
 
 ### Introduction to the Cron Daemon
 
@@ -187,9 +187,10 @@ cron is a background daemon (service) that continuously checks for scheduled tas
 
 #### Editing the Crontab 
 
-The crontab file should never be edited directly.58 The crontab command is used to safely edit it.
+The crontab file should never be edited directly. The crontab command is used to safely edit it.
+
 ```bash
-$ crontab -e: #This is the command to edit the current user's crontab.55 It will open the file in the system's default text editor (e.g., nano)
+$ crontab -e: #This is the command to edit the current user's crontab. It will open the file in the system's default text editor (e.g., nano)
 $ crontab -l: #Lists all jobs in the current user's crontab.
 $ crontab -r: #Removes all jobs from the current user's crontab. Use this command with extreme caution.
 ```
@@ -240,7 +241,7 @@ Table 2: Crontab Syntax Examples
 
 ## Part 5: Deploy keys
 
-Now that we've gotten most of our setup in order the last step is adding the deploy key to our repo.  Normally in this situation you'd want to only give read access to a repo pull for safety.  Here we're going to be a bit more brazen and let the bash script perform a git pull/commit/push all on its own to update our files.  Which for our case will only be the daily json files. TThe first thing you'll need to do is create an SSH key to share with github
+Now that we've gotten most of our setup in order the last step is adding the deploy key to our repo.  Normally in this situation you'd want to only give read access to a repo pull for safety.  Here we're going to be a bit more brazen and let the bash script perform a git pull/commit/push all on its own to update our files.  Which for our case will only be the daily json files. TThe first thing you'll need to do is create an SSH key to share with github.
 
 ```terminal
 ssh-keygen -t ed25519 -C "rp4_deploy_key" -f "$HOME/.ssh/rp4_deploy_key"
