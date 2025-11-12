@@ -247,9 +247,9 @@ Now that we've gotten most of our setup in order the last step is adding the dep
 ssh-keygen -t ed25519 -C "rp4_deploy_key" -f "$HOME/.ssh/rp4_deploy_key"
 ```
 
--t ed25519: Creates a modern, secure key.
--C "...": A comment to help you remember what this key is for.
--f "$HOME/.ssh/rp4_deploy_key": Saves the private key to rp4_deploy_key and the public key to rp4_deploy_key.pub inside your .ssh directory.
+- t ed25519: Creates a modern, secure key.
+- C "...": A comment to help you remember what the key is for
+- f "$HOME/.ssh/rp4_deploy_key": Saves the private key to rp4_deploy_key and the public key to rp4_deploy_key.pub inside your .ssh directory.
 
 ### Crucial
 When it asks for a passphrase, press Enter twice to leave it empty. Why? This script is for automation. If the key has a passphrase, the script will get stuck asking for it, which defeats the purpose.
@@ -300,7 +300,7 @@ git remote set-url origin git@github.com-pyonrpi:Landcruiser87/pyonrpi.git
 This will point any SSH request from your repo, to the appropriate git url with your deploy key
 
 ## WARNING
-This not a secure practice.  But if you want full hands off automation, this is the way to do it!  Thanks for coming~
+This not a secure practice.  But if you want full hands off automation, this is the way to do it!
 
 Now we can set up our cronjob as described earlier.  Say I want this to run the bash script every 10 minutes, and the sensor script `main.py` every minute.  
 That would be:
