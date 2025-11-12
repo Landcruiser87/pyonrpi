@@ -1,15 +1,11 @@
 #!.venv/bin/python
 
 #import main libs
-import time
 import psutil
 import subprocess
-import logging
 from os.path import exists
-from datetime import datetime, timedelta
+from datetime import datetime
 from numpy import nanmean as npmean
-from rich.console import Console
-from pathlib import Path, PurePath
 from dataclasses import dataclass, field
 
 #Import support files

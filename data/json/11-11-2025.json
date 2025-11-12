@@ -1194,5 +1194,29 @@
     "ram_util": "22.40",
     "ram_total": "8.20",
     "gpu_info": "nvidia-smi command not found. Is the NVIDIA driver installed?"
+  },
+  "11-11-2025_23-17-02": {
+    "battery": "sbattery(percent=100, secsleft=<BatteryTime.POWER_TIME_UNLIMITED: -2>, power_plugged=True)",
+    "core_count": "32",
+    "cpu_temp": "None",
+    "cpu_util": "4.80",
+    "cpu_1_min": "0.00",
+    "cpu_5_min": "0.00",
+    "cpu_15_min": "0.00",
+    "swap_util": "3.40",
+    "ram_free": "6.39",
+    "ram_util": "61.90",
+    "ram_total": "16.77",
+    "gpu_info": {
+      "0": {
+        "gpu_temp": "35",
+        "gpu_utilization": "8",
+        "gpu_fan_speed": "[N/A]",
+        "gpu_mem_used": "891",
+        "gpu_mem_total": "8188",
+        "gpu_draw": "3.06",
+        "gpu_power": "[N/A]"
+      }
+    }
   }
 }
