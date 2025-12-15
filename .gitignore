@@ -143,4 +143,5 @@ scrap/*
 *.shp
 *.bat
 *.json
+*.lock
 .Rhistory
